@@ -1,0 +1,145 @@
+.portl-roles {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(600px 280px at 80% 0%, rgba(31, 111, 235, 0.12), transparent 55%),
+    rgba(17, 21, 29, 0.72);
+  transition: background 0.45s ease;
+}
+
+.portl-roles--guard {
+  background:
+    radial-gradient(600px 280px at 80% 0%, rgba(26, 155, 108, 0.14), transparent 55%),
+    rgba(17, 21, 29, 0.72);
+}
+
+.portl-roles--admin {
+  background:
+    radial-gradient(600px 280px at 80% 0%, rgba(14, 116, 144, 0.16), transparent 55%),
+    rgba(17, 21, 29, 0.72);
+}
+
+.portl-roles__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.portl-roles__header h4 {
+  font-size: var(--fs-lg);
+  margin-bottom: 1.25rem;
+}
+
+.portl-roles__control {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: rgba(7, 9, 13, 0.55);
+  margin-bottom: 1.5rem;
+}
+
+.portl-roles__indicator {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.3rem;
+  width: calc((100% - 0.6rem) / 3);
+  height: calc(100% - 0.6rem);
+  border-radius: var(--radius-full);
+  background: rgba(216, 126, 54, 0.16);
+  border: 1px solid rgba(216, 126, 54, 0.35);
+  transition: transform 0.35s var(--ease-out);
+  pointer-events: none;
+}
+
+.portl-roles__control button {
+  position: relative;
+  z-index: 1;
+  min-height: 44px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.portl-roles__control button.is-active,
+.portl-roles__control button:focus-visible {
+  color: var(--color-text);
+}
+
+.portl-roles__panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.portl-roles__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-accent-light);
+  margin-bottom: 0.5rem;
+}
+
+.portl-roles__copy > p {
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.portl-roles__copy ul {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.portl-roles__copy li {
+  position: relative;
+  padding-left: 0.9rem;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.portl-roles__copy li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.portl-roles__stage {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.portl-roles__strip {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 0.25rem;
+}
+
+.portl-roles__strip img {
+  width: 84px;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  flex: 0 0 auto;
+}
+
+@media (min-width: 900px) {
+  .portl-roles__panel {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+  }
+}

@@ -1,0 +1,70 @@
+.magnetic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0.85rem 1.35rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-soft),
+    color var(--duration-base) var(--ease-soft),
+    border-color var(--duration-base) var(--ease-soft),
+    box-shadow var(--duration-base) var(--ease-soft);
+  will-change: transform;
+}
+
+.magnetic-btn--primary {
+  background: var(--color-accent);
+  color: #1a1108;
+  box-shadow: 0 10px 30px rgba(216, 126, 54, 0.25);
+}
+
+.magnetic-btn--primary:hover {
+  background: var(--color-accent-light);
+}
+
+.magnetic-btn--primary:active,
+.magnetic-btn--secondary:active,
+.magnetic-btn--nav:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.magnetic-btn--secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.magnetic-btn--secondary:hover {
+  border-color: rgba(240, 178, 122, 0.45);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.magnetic-btn--ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid transparent;
+  padding-inline: 0.9rem;
+}
+
+.magnetic-btn--ghost:hover {
+  color: var(--color-accent-light);
+}
+
+.magnetic-btn--nav {
+  background: rgba(216, 126, 54, 0.12);
+  color: var(--color-accent-light);
+  border: 1px solid rgba(216, 126, 54, 0.35);
+  min-height: 40px;
+  padding: 0.55rem 1rem;
+}
+
+.magnetic-btn--nav:hover {
+  background: rgba(216, 126, 54, 0.2);
+}

@@ -1,0 +1,118 @@
+.capability-diagram {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: var(--space-7);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: rgba(20, 25, 34, 0.55);
+}
+
+.capability-diagram__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.capability-diagram__node {
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  border: 1px solid rgba(216, 126, 54, 0.3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.capability-diagram__line {
+  width: 28px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+}
+
+.capabilities__layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.capabilities__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.capabilities__tabs button {
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast),
+    border-color var(--duration-fast);
+}
+
+.capabilities__tabs button.is-active,
+.capabilities__tabs button:hover {
+  color: var(--color-text);
+  border-color: rgba(216, 126, 54, 0.45);
+  background: rgba(216, 126, 54, 0.1);
+}
+
+.capabilities__panel {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.capabilities__panel h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-4);
+}
+
+.capabilities__panel ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.capabilities__panel li {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-sm);
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.capabilities__panel li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+@media (min-width: 900px) {
+  .capabilities__layout {
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+  }
+
+  .capabilities__tabs {
+    flex-direction: column;
+  }
+
+  .capabilities__tabs button {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}

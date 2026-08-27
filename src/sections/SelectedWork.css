@@ -1,0 +1,13 @@
+.selected-work {
+  overflow: clip;
+}
+
+.selected-work__list {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.selected-work__stack {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3rem);
+}

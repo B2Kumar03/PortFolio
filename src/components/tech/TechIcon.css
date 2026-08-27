@@ -1,0 +1,15 @@
+.tech-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  flex: none;
+}
+
+.tech-icon img {
+  width: 1.15rem;
+  height: 1.15rem;
+  object-fit: contain;
+}

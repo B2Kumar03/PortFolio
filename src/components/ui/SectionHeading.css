@@ -1,0 +1,28 @@
+.section-heading-block {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.section-heading-block .section-heading {
+  max-width: 16ch;
+  font-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.section-heading--lines {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.12;
+}
+
+.section-heading__line {
+  display: block;
+}
+
+.section-heading-block--center {
+  text-align: center;
+}
+
+.section-heading-block--center .section-heading,
+.section-heading-block--center .section-subheading {
+  margin-inline: auto;
+}
