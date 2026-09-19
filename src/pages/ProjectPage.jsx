@@ -1,10 +1,8 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight, Download, Images, Play } from 'lucide-react'
-import gsap from 'gsap'
-import { projects } from '../data/portfolio'
+import { personal, projects } from '../data/portfolio'
 import { ProjectMedia } from '../components/media/ProjectMedia'
-import { prefersReducedMotion } from '../utils/media'
 import './ProjectPage.css'
 
 const ScreenLightbox = lazy(() =>
@@ -149,26 +147,20 @@ function PortlGallery({ activeRole, onRoleChange }) {
 export function ProjectPage() {
   const { slug } = useParams()
   const project = projects.find((p) => p.slug === slug)
-  const rootRef = useRef(null)
   const [activeRole, setActiveRole] = useState('resident')
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [slug])
 
-  useLayoutEffect(() => {
-    if (!rootRef.current || prefersReducedMotion()) return undefined
-    const ctx = gsap.context(() => {
-      gsap.from('.project-page__reveal', {
-        y: 24,
-        opacity: 0,
-        duration: 0.65,
-        stagger: 0.06,
-        ease: 'power3.out',
-      })
-    }, rootRef)
-    return () => ctx.revert()
-  }, [slug])
+  useEffect(() => {
+    if (!project) return undefined
+    const previous = document.title
+    document.title = `${project.title} — ${personal.name}`
+    return () => {
+      document.title = previous
+    }
+  }, [project])
 
   const role = useMemo(
     () => project?.roles?.[activeRole],
@@ -180,7 +172,7 @@ export function ProjectPage() {
   const isPortl = project.slug === 'portl'
 
   return (
-    <article className="project-page section" ref={rootRef}>
+    <article className="project-page section">
       <div className="container">
         <Link to="/#work" className="project-page__back project-page__reveal">
           <ArrowLeft size={16} aria-hidden="true" />
@@ -223,7 +215,7 @@ export function ProjectPage() {
 
         <div className="project-page__grid">
           <section className="project-page__reveal">
-            <h2>Overview</h2>
+            <h2>Project overview</h2>
             <p>{project.overview || project.summary}</p>
           </section>
           <section className="project-page__reveal">
@@ -286,20 +278,7 @@ export function ProjectPage() {
             </section>
           ) : null}
 
-          <section className="project-page__reveal">
-            <h2>{isPortl ? 'Important features' : 'My contribution'}</h2>
-            {isPortl ? (
-              <ul>
-                {project.features.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>{project.contribution}</p>
-            )}
-          </section>
-
-          {!isPortl && project.features?.length ? (
+          {project.features?.length ? (
             <section className="project-page__reveal">
               <h2>Features</h2>
               <ul>
@@ -310,8 +289,27 @@ export function ProjectPage() {
             </section>
           ) : null}
 
+          {project.architecture && !isPortl ? (
+            <section className="project-page__reveal">
+              <h2>Architecture</h2>
+              <p>{project.architecture}</p>
+            </section>
+          ) : null}
+
           <section className="project-page__reveal">
-            <h2>Engineering challenges</h2>
+            <h2>My role</h2>
+            {project.contribution ? <p>{project.contribution}</p> : null}
+            {project.contributionItems?.length ? (
+              <ul>
+                {project.contributionItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+          </section>
+
+          <section className="project-page__reveal">
+            <h2>Challenges</h2>
             <ul>
               {(project.challenges || []).map((item) => (
                 <li key={item}>{item}</li>
@@ -320,7 +318,7 @@ export function ProjectPage() {
           </section>
 
           <section className="project-page__reveal">
-            <h2>Technology stack</h2>
+            <h2>Technology</h2>
             {project.fullTech && !Array.isArray(project.fullTech) ? (
               <div className="project-page__tech-groups">
                 <div>
@@ -350,10 +348,31 @@ export function ProjectPage() {
           </section>
 
           <section className="project-page__reveal project-page__outcome">
-            <h2>Outcome and learning</h2>
+            <h2>Outcome / functionality</h2>
             <p>{project.outcome}</p>
           </section>
         </div>
+
+        {!isPortl && Array.isArray(project.screenshots) && project.screenshots.length ? (
+          <section className="project-page__gallery project-page__reveal">
+            <div className="project-page__gallery-head">
+              <h2>Screenshots</h2>
+            </div>
+            <div className="project-page__shot-row">
+              {project.screenshots.map((shot) => (
+                <figure key={shot.id}>
+                  <img
+                    src={shot.src}
+                    alt={shot.alt || shot.name}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>{shot.name}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {isPortl ? (
           <PortlGallery activeRole={activeRole} onRoleChange={setActiveRole} />

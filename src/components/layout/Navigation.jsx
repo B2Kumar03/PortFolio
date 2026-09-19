@@ -2,43 +2,22 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { navigation, personal } from '../../data/portfolio'
 import { getActiveSection, scrollToHash } from '../../utils/scroll'
-import { useScrollProgress } from '../../hooks/useScrollProgress'
-import { useMagnetic } from '../../hooks/useMagnetic'
 import { MagneticButton } from '../ui/MagneticButton'
 import { MobileMenu } from './MobileMenu'
 import './Navigation.css'
 
-const SECTION_IDS = ['work', 'experience', 'capabilities', 'stack', 'about', 'journey', 'contact']
-const SECTION_LABELS = {
-  work: '01',
-  about: '02',
-  experience: '03',
-  contact: '04',
-  capabilities: '·',
-  stack: '·',
-  journey: '·',
-}
-
-function BrandMark() {
-  const ref = useMagnetic(0.22)
-  return (
-    <Link to="/" className="nav__brand" aria-label={`${personal.name} home`} ref={ref}>
-      <span aria-hidden="true">{personal.monogram}</span>
-    </Link>
-  )
-}
+const SECTION_IDS = ['work', 'experience', 'skills', 'about', 'contact']
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('work')
   const [menuOpen, setMenuOpen] = useState(false)
-  const progress = useScrollProgress()
   const location = useLocation()
   const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 48)
+      setScrolled(window.scrollY > 24)
       if (isHome) setActive(getActiveSection(SECTION_IDS))
     }
     onScroll()
@@ -58,20 +37,16 @@ export function Navigation() {
   }
 
   const resume = personal.resumeUrl
-  const sectionNumber = SECTION_LABELS[active] || '01'
 
   return (
     <>
       <header
-        className={`nav ${scrolled || menuOpen ? 'nav--solid' : 'nav--blend'} ${menuOpen ? 'nav--menu-open' : ''}`}
+        className={`nav ${scrolled || menuOpen ? 'is-scrolled' : ''} ${menuOpen ? 'nav--menu-open' : ''}`}
       >
-        <div
-          className="nav__progress"
-          style={{ transform: `scaleX(${progress})` }}
-          aria-hidden="true"
-        />
         <div className="nav__inner container">
-          <BrandMark />
+          <Link to="/" className="nav__brand" aria-label={`${personal.name} home`}>
+            {personal.name}
+          </Link>
 
           <nav className="nav__links" aria-label="Primary">
             {navigation.map((item) => (
@@ -79,6 +54,7 @@ export function Navigation() {
                 key={item.id}
                 href={isHome ? item.href : `/#${item.id}`}
                 className={`nav__link ${active === item.id ? 'is-active' : ''}`}
+                aria-current={active === item.id ? 'location' : undefined}
                 onClick={(e) => handleNav(e, item.href)}
               >
                 {item.label}
@@ -87,15 +63,6 @@ export function Navigation() {
           </nav>
 
           <div className="nav__actions">
-            <span className="nav__section-num" aria-hidden="true">
-              {sectionNumber}
-            </span>
-
-            <span className="nav__status" title={personal.availability}>
-              <span className="nav__status-dot" aria-hidden="true" />
-              <span className="nav__status-text">Available</span>
-            </span>
-
             {resume ? (
               <MagneticButton
                 as="a"
@@ -103,9 +70,8 @@ export function Navigation() {
                 className="magnetic-btn--nav nav__resume"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="Open"
               >
-                Résumé
+                Resume
               </MagneticButton>
             ) : null}
 

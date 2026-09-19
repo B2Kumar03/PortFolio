@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { Copy, ExternalLink, FileText, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { Copy, Mail } from 'lucide-react'
 import { personal } from '../data/portfolio'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { useToast } from '../hooks/useToast'
@@ -11,7 +11,6 @@ export function Contact() {
   const { show } = useToast()
   const time = useLocalTime(personal.timezone)
   const { contact } = personal
-  const lineRef = useRef(null)
   const [copied, setCopied] = useState(false)
 
   const onCopyEmail = async () => {
@@ -27,22 +26,8 @@ export function Contact() {
     }
   }
 
-  const onPointerMove = (e) => {
-    if (!lineRef.current) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    lineRef.current.style.transform = `translateX(${x - 50}%)`
-  }
-
   return (
-    <section
-      id="contact"
-      className="section contact"
-      onPointerMove={onPointerMove}
-      aria-labelledby="contact-heading"
-    >
-      <div className="contact__glow" aria-hidden="true" />
-      <div ref={lineRef} className="contact__pointer-line" aria-hidden="true" />
+    <section id="contact" className="section contact" aria-labelledby="contact-heading">
       <div className="container contact__inner">
         <div className="contact__status">
           <span className="contact__dot" aria-hidden="true" />
@@ -62,31 +47,21 @@ export function Contact() {
                 as="a"
                 href={`mailto:${personal.email}?subject=${encodeURIComponent('Opportunity inquiry — Bittu Kumar portfolio')}`}
                 className="magnetic-btn--primary"
-                data-cursor="Open"
               >
                 <Mail size={16} aria-hidden="true" />
-                {contact.cta || "Let's talk"}
+                {contact.cta || 'Email Me'}
               </MagneticButton>
               <MagneticButton
                 type="button"
                 className="magnetic-btn--secondary"
                 onClick={onCopyEmail}
-                data-cursor="Copy"
                 aria-live="polite"
               >
                 <Copy size={16} aria-hidden="true" />
                 {copied ? 'Copied' : 'Copy email'}
               </MagneticButton>
             </>
-          ) : (
-            <MagneticButton
-              type="button"
-              className="magnetic-btn--primary"
-              onClick={() => show('Add your email in src/data/portfolio.js')}
-            >
-              {contact.cta || "Let's talk"}
-            </MagneticButton>
-          )}
+          ) : null}
 
           {personal.linkedin ? (
             <MagneticButton
@@ -95,9 +70,7 @@ export function Contact() {
               className="magnetic-btn--secondary"
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Open"
             >
-              <ExternalLink size={16} aria-hidden="true" />
               LinkedIn
             </MagneticButton>
           ) : null}
@@ -109,33 +82,11 @@ export function Contact() {
               className="magnetic-btn--secondary"
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Open"
             >
-              <ExternalLink size={16} aria-hidden="true" />
               GitHub
             </MagneticButton>
           ) : null}
-
-          {personal.resumeUrl ? (
-            <MagneticButton
-              as="a"
-              href={personal.resumeUrl}
-              className="magnetic-btn--secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="Open"
-            >
-              <FileText size={16} aria-hidden="true" />
-              Download résumé
-            </MagneticButton>
-          ) : null}
         </div>
-
-        {!personal.email && !personal.linkedin && !personal.github && !personal.resumeUrl ? (
-          <p className="contact__todo">
-            TODO: Add email, LinkedIn, GitHub and résumé URL in <code>src/data/portfolio.js</code>.
-          </p>
-        ) : null}
       </div>
     </section>
   )

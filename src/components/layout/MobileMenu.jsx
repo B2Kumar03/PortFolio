@@ -75,15 +75,15 @@ export function MobileMenu({ open, onClose, onNavigate, isHome, resumeUrl, activ
       >
         <nav aria-label="Mobile">
           <ul className="mobile-menu__list">
-            {navigation.map((item, index) => (
-              <li key={item.id} style={{ '--i': index }}>
+            {navigation.map((item) => (
+              <li key={item.id}>
                 <a
                   href={isHome ? item.href : `/#${item.id}`}
                   tabIndex={open ? 0 : -1}
                   className={active === item.id ? 'is-active' : ''}
+                  aria-current={active === item.id ? 'location' : undefined}
                   onClick={(e) => onNavigate(e, item.href)}
                 >
-                  <span className="mobile-menu__index">{String(index + 1).padStart(2, '0')}</span>
                   {item.label}
                 </a>
               </li>
@@ -92,10 +92,6 @@ export function MobileMenu({ open, onClose, onNavigate, isHome, resumeUrl, activ
         </nav>
 
         <div className="mobile-menu__meta">
-          <p>
-            <span className="mobile-menu__dot" aria-hidden="true" />
-            Available for opportunities
-          </p>
           {resumeUrl ? (
             <a
               href={resumeUrl}
@@ -104,10 +100,11 @@ export function MobileMenu({ open, onClose, onNavigate, isHome, resumeUrl, activ
               tabIndex={open ? 0 : -1}
               className="mobile-menu__resume"
             >
-              Download résumé
+              Resume
             </a>
           ) : null}
           <p className="mobile-menu__name">{personal.name}</p>
+          <p>{personal.role}</p>
         </div>
       </div>
     </div>

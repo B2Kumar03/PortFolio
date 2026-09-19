@@ -1,0 +1,60 @@
+.social-proof .section-heading {
+  max-width: 18ch;
+  margin-bottom: var(--space-6);
+}
+
+.social-proof__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.social-proof__card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 108px;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  transition:
+    border-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.social-proof__card:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+}
+
+.social-proof__card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+}
+
+.social-proof__card p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-sm);
+  max-width: 32ch;
+}
+
+.social-proof__card svg {
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+  flex: none;
+}
+
+@media (min-width: 720px) {
+  .social-proof__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-proof__card:hover {
+    transform: none;
+  }
+}

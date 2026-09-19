@@ -1,11 +1,11 @@
 {
-  "name": "Bittu Kumar Portfolio",
+  "name": "Bittu Kumar",
   "short_name": "Bittu Kumar",
-  "description": "Mobile & Full-Stack Developer portfolio",
+  "description": "Software Engineer | Full-Stack & Mobile Developer",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#07090D",
-  "theme_color": "#07090D",
+  "background_color": "#090b10",
+  "theme_color": "#090b10",
   "lang": "en",
   "icons": [
     {

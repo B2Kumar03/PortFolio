@@ -2,13 +2,13 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { prefersReducedMotion } from '../utils/media'
+import { isTouchDevice, prefersReducedMotion } from '../utils/media'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function useLenis(enabled = true) {
   useEffect(() => {
-    if (!enabled || prefersReducedMotion()) return undefined
+    if (!enabled || prefersReducedMotion() || isTouchDevice()) return undefined
 
     const lenis = new Lenis({
       duration: 1.1,

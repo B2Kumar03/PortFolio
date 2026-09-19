@@ -1,23 +1,5 @@
 import { education, personal } from '../data/portfolio'
-import '../components/ui/SectionHeading.css'
 import './About.css'
-
-function AboutHeading({ text }) {
-  const lines = text.split(/(?<=[.!?])\s+/).filter(Boolean)
-
-  return (
-    <header className="section-heading-block about__heading-block">
-      <p className="section-label">About</p>
-      <h2 className="section-heading about__heading">
-        {lines.map((line) => (
-          <span key={line} className="about__heading-line">
-            {line}
-          </span>
-        ))}
-      </h2>
-    </header>
-  )
-}
 
 export function About() {
   const { about } = personal
@@ -49,6 +31,7 @@ export function About() {
 
           <div className="about__details">
             <p className="about__caption">{personal.name}</p>
+            <p className="about__role">{personal.role}</p>
             <dl className="about__meta">
               <div>
                 <dt>Location</dt>
@@ -58,7 +41,9 @@ export function About() {
                 <dt>Education</dt>
                 <dd>
                   {education.degree}
-                  <span>{education.college}</span>
+                  <span>
+                    {education.college} · {education.session}
+                  </span>
                 </dd>
               </div>
             </dl>
@@ -66,21 +51,17 @@ export function About() {
         </div>
 
         <div className="about__copy">
-          <AboutHeading text={about.heading} />
-          <div className="about__paragraphs">
-            {about.paragraphs.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
-          </div>
+          <header className="section-heading-block about__heading-block">
+            <p className="section-label">About</p>
+            <h2 className="section-heading about__heading">{about.heading}</h2>
+          </header>
 
-          <ul className="about__values">
-            {about.values.map((value) => (
-              <li key={value.title}>
-                <h3>{value.title}</h3>
-                <p>{value.description}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="about__paragraphs">
+            <p>{about.who}</p>
+            <p>{about.work}</p>
+            <p>{about.enjoy}</p>
+            <p>{about.learning}</p>
+          </div>
         </div>
       </div>
     </section>

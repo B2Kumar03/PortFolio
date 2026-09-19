@@ -21,8 +21,8 @@
 
 .magnetic-btn--primary {
   background: var(--color-accent);
-  color: #1a1108;
-  box-shadow: 0 10px 30px rgba(216, 126, 54, 0.25);
+  color: #16110c;
+  box-shadow: 0 8px 22px rgba(201, 132, 74, 0.22);
 }
 
 .magnetic-btn--primary:hover {
@@ -58,11 +58,11 @@
 }
 
 .magnetic-btn--nav {
-  background: rgba(216, 126, 54, 0.12);
+  background: rgba(201, 132, 74, 0.12);
   color: var(--color-accent-light);
-  border: 1px solid rgba(216, 126, 54, 0.35);
-  min-height: 40px;
-  padding: 0.55rem 1rem;
+  border: 1px solid rgba(201, 132, 74, 0.35);
+  min-height: 38px;
+  padding: 0.45rem 0.95rem;
 }
 
 .magnetic-btn--nav:hover {

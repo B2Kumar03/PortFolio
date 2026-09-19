@@ -3,15 +3,21 @@ import { useLocation } from 'react-router-dom'
 import { Hero } from '../sections/Hero'
 import { SelectedWork } from '../sections/SelectedWork'
 import { Experience } from '../sections/Experience'
-import { Capabilities } from '../sections/Capabilities'
+import { Highlights } from '../sections/Highlights'
 import { TechStack } from '../sections/TechStack'
+import { CurrentlyBuilding } from '../sections/CurrentlyBuilding'
 import { About } from '../sections/About'
-import { Journey } from '../sections/Journey'
+import { SocialProof } from '../sections/SocialProof'
 import { Contact } from '../sections/Contact'
+import { siteConfig } from '../data/portfolio'
 import { scrollToHash } from '../utils/scroll'
 
 export function HomePage() {
   const location = useLocation()
+
+  useEffect(() => {
+    document.title = siteConfig.title
+  }, [])
 
   useEffect(() => {
     if (location.hash) {
@@ -26,10 +32,11 @@ export function HomePage() {
       <Hero />
       <SelectedWork />
       <Experience />
-      <Capabilities />
+      <Highlights />
       <TechStack />
+      <CurrentlyBuilding />
       <About />
-      <Journey />
+      <SocialProof />
       <Contact />
     </>
   )

@@ -1,10 +1,10 @@
 export const motion = {
   duration: {
-    instant: 0.18,
-    fast: 0.3,
-    normal: 0.55,
-    slow: 0.85,
-    cinematic: 1.2,
+    instant: 0.16,
+    fast: 0.24,
+    normal: 0.42,
+    slow: 0.62,
+    cinematic: 0.8,
   },
   ease: {
     standard: 'power3.out',

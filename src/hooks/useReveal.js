@@ -1,39 +1,48 @@
 import { useLayoutEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReducedMotion } from '../utils/media'
-import { motion } from '../utils/motion'
 
-gsap.registerPlugin(ScrollTrigger)
+function isInViewport(el) {
+  const rect = el.getBoundingClientRect()
+  return rect.top < window.innerHeight * 0.94 && rect.bottom > 40
+}
 
-export function useReveal(options = {}) {
+export function useReveal() {
   const ref = useRef(null)
 
   useLayoutEffect(() => {
     const el = ref.current
     if (!el) return undefined
-    if (prefersReducedMotion()) {
-      el.style.opacity = '1'
-      el.style.transform = 'none'
+
+    const show = () => {
+      el.classList.add('is-visible')
+      el.classList.remove('js-reveal')
+    }
+
+    if (prefersReducedMotion() || isInViewport(el)) {
+      show()
       return undefined
     }
 
-    const ctx = gsap.context(() => {
-      gsap.from(el, {
-        y: options.y ?? motion.distance.medium,
-        opacity: 0,
-        duration: options.duration ?? motion.duration.normal,
-        ease: options.ease ?? motion.ease.standard,
-        scrollTrigger: {
-          trigger: el,
-          start: options.start ?? 'top 88%',
-          once: true,
-        },
-      })
-    })
+    el.classList.add('js-reveal')
 
-    return () => ctx.revert()
-  }, [options.duration, options.ease, options.start, options.y])
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          show()
+          io.disconnect()
+        }
+      },
+      { threshold: 0.05, rootMargin: '0px 0px -8% 0px' },
+    )
+
+    io.observe(el)
+    const fallback = window.setTimeout(show, 900)
+
+    return () => {
+      io.disconnect()
+      window.clearTimeout(fallback)
+    }
+  }, [])
 
   return ref
 }

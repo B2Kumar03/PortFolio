@@ -5,12 +5,12 @@ import './TechStack.css'
 
 export function TechStack() {
   return (
-    <section id="stack" className="section tech-stack">
+    <section id="skills" className="section tech-stack">
       <div className="container">
         <SectionHeading
-          label="Technology stack"
-          title="Tools I use to build mobile and full-stack products."
-          subtitle="Grouped by area so it’s easy to see what I work with day to day."
+          label="Technical expertise"
+          title="Tools I use to build and ship."
+          subtitle="Grouped by area — the stack I actually work with across web, backend and mobile."
         />
 
         <div className="tech-stack__grid">

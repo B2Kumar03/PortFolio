@@ -1,6 +1,4 @@
-import { ArrowUp } from 'lucide-react'
 import { personal } from '../../data/portfolio'
-import { scrollToHash } from '../../utils/scroll'
 import './Footer.css'
 
 export function Footer() {
@@ -14,51 +12,28 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="footer__inner container">
-        <div className="footer__top">
-          <p className="footer__credit">
-            {personal.footer.credit} © {year}
-          </p>
-          <button
-            type="button"
-            className="footer__top-btn"
-            onClick={() => {
-              const lenis = window.__lenis
-              if (lenis) lenis.scrollTo(0, { duration: 1.1 })
-              else window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            aria-label="Back to top"
-          >
-            Back to top
-            <ArrowUp size={16} aria-hidden="true" />
-          </button>
+        <div>
+          <p className="footer__name">{personal.footer.credit}</p>
+          <p className="footer__role">{personal.footer.role}</p>
         </div>
 
-        <div className="footer__bottom">
-          <p className="footer__built">{personal.footer.builtWith}</p>
-          {socials.length ? (
-            <ul className="footer__socials">
-              {socials.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target={s.href.startsWith('mailto:') ? undefined : '_blank'}
-                    rel={s.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                    onClick={(e) => {
-                      if (s.href.startsWith('#')) {
-                        e.preventDefault()
-                        scrollToHash(s.href)
-                      }
-                    }}
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="footer__hint">Add social links in src/data/portfolio.js</p>
-          )}
-        </div>
+        {socials.length ? (
+          <ul className="footer__socials">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={s.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        <p className="footer__copy">© {year}</p>
       </div>
     </footer>
   )

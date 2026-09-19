@@ -1,30 +1,48 @@
-import { projects } from '../data/portfolio'
-import { PortlScrollStory } from '../components/projects/PortlScrollStory'
-import { StepCoachShowcase } from '../components/projects/StepCoachShowcase'
-import { BrowserShowcase } from '../components/projects/BrowserShowcase'
+import { useMemo, useState } from 'react'
+import { projectFilters, projects } from '../data/portfolio'
+import { WorkCard } from '../components/projects/WorkCard'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import './SelectedWork.css'
 
 export function SelectedWork() {
-  const portl = projects.find((p) => p.id === 'portl')
-  const stepCoach = projects.find((p) => p.id === 'ai-step-coach')
-  const extensions = projects.find((p) => p.id === 'browser-extensions')
+  const [filter, setFilter] = useState('All')
+
+  const visible = useMemo(() => {
+    if (filter === 'All') return projects
+    return projects.filter((project) => project.categories?.includes(filter))
+  }, [filter])
 
   return (
     <section id="work" className="section selected-work">
       <div className="container">
         <SectionHeading
           label="Selected work"
-          title="Personal products I’ve built and shipped."
-          subtitle="Portl, AI Step Coach and browser extensions — focused mobile and tool experiences."
+          title="A selection of products, systems and applications I've built."
         />
-      </div>
 
-      <div className="selected-work__list">
-        {portl ? <PortlScrollStory project={portl} /> : null}
-        <div className="container selected-work__stack">
-          {stepCoach ? <StepCoachShowcase project={stepCoach} /> : null}
-          {extensions ? <BrowserShowcase project={extensions} /> : null}
+        <div className="filter-bar" role="toolbar" aria-label="Filter projects">
+          {projectFilters.map((item) => (
+            <button
+              key={item}
+              type="button"
+              className={filter === item ? 'is-active' : ''}
+              aria-pressed={filter === item}
+              onClick={() => setFilter(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        <div className="selected-work__grid">
+          {visible.map((project, index) => (
+            <WorkCard
+              key={project.id}
+              project={project}
+              featured={(filter === 'All' && index === 0) || visible.length === 1}
+              priority={index === 0}
+            />
+          ))}
         </div>
       </div>
     </section>

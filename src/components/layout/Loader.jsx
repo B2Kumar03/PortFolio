@@ -110,7 +110,7 @@ export function Loader({ onComplete }) {
       )
       .to(state, {
         value: 100,
-        duration: 1.05,
+        duration: 0.42,
         ease: 'power2.out',
         onUpdate: () => {
           const next = Math.round(state.value)
